@@ -78,11 +78,11 @@ class Workflow(model.Model):
         self.targetTime = None
         self._models = {}
 
-    def initialize(self, file='', workdir='', targetTime=0.*units.Q.s, metadata={}, validateMetaData=True):
+    def initialize(self, files=[], workdir='', targetTime=0.*units.Q.s, metadata={}, validateMetaData=True):
         """
         Initializes application, i.e. all functions after constructor and before run.
         
-        :param str file: Name of file
+        :param list of str files: Name of file
         :param str workdir: Optional parameter for working directory
         :param PhysicalQuantity targetTime: target simulation time
         :param dict metadata: Optional dictionary used to set up metadata (can be also set by setMetadata() )
@@ -97,7 +97,7 @@ class Workflow(model.Model):
         else:
             raise TypeError('targetTime is not Quantity')
         
-        self.file = file
+        self.files = files
         if workdir == '':
             self.workDir = os.getcwd()
         else:

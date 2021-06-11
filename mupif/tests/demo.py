@@ -74,8 +74,8 @@ class AppGridAvg(model.Model):
     #nx: int=50
     #nt: int=50
 
-    def __init__(self, file):
-        super().__init__(file=file)
+    def __init__(self, files):
+        super().__init__(files=files)
         self.value = 0.0
         self.count = 0.0
         self.contrib = 0.0

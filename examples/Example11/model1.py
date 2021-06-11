@@ -51,8 +51,8 @@ class Model1 (mp.Model):
         self.updateMetadata(metadata)
         self.grainState=None
 
-    def initialize(self, file='', workdir='', metadata={}, validateMetaData=True, **kwargs):
-        super().initialize(file=file, workdir=workdir, metadata=metadata, validateMetaData=validateMetaData)
+    def initialize(self, files=[], workdir='', metadata={}, validateMetaData=True, **kwargs):
+        super().initialize(files=files, workdir=workdir, metadata=metadata, validateMetaData=validateMetaData)
 
     def get(self, propID, time, objectID=0):
         

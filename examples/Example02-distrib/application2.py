@@ -56,11 +56,11 @@ class Application2(mp.Model):
         self.contrib = mp.ConstantProperty(
             value=(0.,), propID=mp.PropertyID.PID_Time, valueType=mp.ValueType.Scalar, unit=mp.U.s, time=0*mp.U.s)
 
-    def initialize(self, file='', workdir='', metadata={}, validateMetaData=True):
+    def initialize(self, files=[], workdir='', metadata={}, validateMetaData=True):
         #import pprint.prrint
         #pprint(self.metadata)
         #sys.exit(1)
-        super().initialize(file=file, workdir=workdir, metadata=metadata, validateMetaData=validateMetaData)
+        super().initialize(files=files, workdir=workdir, metadata=metadata, validateMetaData=validateMetaData)
 
     def getProperty(self, propID, time, objectID=0):
         md = {

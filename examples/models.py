@@ -123,11 +123,12 @@ class ThermalModel(mupif.model.Model):
         self.b = None
         self.bp = None
 
-    def initialize(self, file='', workdir='', metadata={}, validateMetaData=False):
-        super().initialize(file, workdir, metadata, validateMetaData)
+    def initialize(self, files=[], workdir='', metadata={}, validateMetaData=False):
+        super().initialize(files, workdir, metadata, validateMetaData)
 
-        if self.file != "":
-            self.readInput()
+        if len(self.files):
+            if self.files[0] != "":
+                self.readInput()
 
     def readInput(self, tria=False):
         self.tria = tria
@@ -136,11 +137,11 @@ class ThermalModel(mupif.model.Model):
 
         lines = []
         try:
-            for line in open(self.workDir + os.path.sep + self.file, 'r'):
+            for line in open(self.workDir + os.path.sep + self.files[0], 'r'):
                 if not line.startswith('#'):
                     lines.append(line)
         except Exception as e:
-            log.info('Current working directory is %s, file is %s' % (self.workDir, self.file))
+            log.info('Current working directory is %s, file is %s' % (self.workDir, self.files[0]))
             log.exception(e)
             raise
 
@@ -709,11 +710,12 @@ class ThermalNonstatModel(ThermalModel):
         self.P = None
         self.Tp = None
 
-    def initialize(self, file='', workdir='', metadata={}, validateMetaData=False):
-        super().initialize(file, workdir, metadata, validateMetaData)
+    def initialize(self, files=[], workdir='', metadata={}, validateMetaData=False):
+        super().initialize(files, workdir, metadata, validateMetaData)
 
-        if self.file != "":
-            self.readInput(tria=True)
+        if len(self.files):
+            if self.files[0] != "":
+                self.readInput(tria=True)
 
     def getApplicationSignature(self):
         return "Nonstat-Thermal-demo-solver, ver 1.0"
@@ -1028,11 +1030,12 @@ class MechanicalModel(mupif.model.Model):
         self.integral = 0.0
         self.T = None
 
-    def initialize(self, file='', workdir='', metadata={}, validateMetaData=False):
-        super().initialize(file, workdir, metadata, validateMetaData)
+    def initialize(self, files=[], workdir='', metadata={}, validateMetaData=False):
+        super().initialize(files, workdir, metadata, validateMetaData)
 
-        if self.file != "":
-            self.readInput()
+        if len(self.files):
+            if self.files[0] != "":
+                self.readInput()
 
     def getCriticalTimeStep(self):
         return .4*mp.U.s
@@ -1045,7 +1048,7 @@ class MechanicalModel(mupif.model.Model):
         self.dirichletModelEdges = []
         self.loadModelEdges = []
         try:
-            f = open(self.workDir + os.path.sep + self.file, 'r')
+            f = open(self.workDir + os.path.sep + self.files[0], 'r')
             # size
             line = getline(f)
             size = line.split()

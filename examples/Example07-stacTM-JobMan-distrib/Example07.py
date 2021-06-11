@@ -42,7 +42,7 @@ class Example07(workflow.Workflow):
         self.mechanicalSolver = None
         self.appsTunnel = None
 
-    def initialize(self, file='', workdir='', targetTime=0*mp.U.s, metadata={}, validateMetaData=True):
+    def initialize(self, files=[], workdir='', targetTime=0*mp.U.s, metadata={}, validateMetaData=True):
         # locate nameserver
         ns = pyroutil.connectNameServer(nshost=cfg.nshost, nsport=cfg.nsport)
         # connect to JobManager running on (remote) server
@@ -67,8 +67,7 @@ class Example07(workflow.Workflow):
             self.registerModel(self.thermalSolver, 'thermal')
             self.registerModel(self.mechanicalSolver, 'mechanical')
 
-            super().initialize(file=file, workdir=workdir, targetTime=targetTime, metadata=metadata,
-                                              validateMetaData=validateMetaData)
+            super().initialize(files=files, workdir=workdir, targetTime=targetTime, metadata=metadata, validateMetaData=validateMetaData)
             if (self.thermalSolver is not None) and (self.mechanicalSolver is not None):
 
                 thermalSolverSignature = self.thermalSolver.getApplicationSignature()
@@ -95,12 +94,12 @@ class Example07(workflow.Workflow):
                 self.thermalSolver.updateMetadata(passingMD)
                 self.mechanicalSolver.updateMetadata(passingMD)
                 self.thermalSolver.initialize(
-                    file="./input.in",
+                    files=["./input.in"],
                     workdir=self.thermalJobMan.getJobWorkDir(self.thermalSolver.getJobID()),
                     metadata=passingMD
                 )
                 self.mechanicalSolver.initialize(
-                    file="./input.in",
+                    files=["./input.in"],
                     workdir=self.mechanicalJobMan.getJobWorkDir(self.mechanicalSolver.getJobID()),
                     metadata=passingMD
                 )

@@ -15,7 +15,7 @@ Pyro5.config.SERVERTYPE = "multiplex"
 from mupif import pyroutil
 @Pyro5.api.expose
 class AnyApp(mupif.model.Model):
-    def __init__(self,f): super().__init__(file=f)
+    def __init__(self,f): super().__init__(files=f)
     def getApplicationSignature(self): return self.__class__.__name__+"@"+ socket.gethostbyaddr(socket.gethostname())[0]+" version 1.0"
 @Pyro5.api.expose
 class LocalApp(AnyApp): 

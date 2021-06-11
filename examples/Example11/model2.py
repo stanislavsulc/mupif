@@ -56,8 +56,8 @@ class Model2 (mp.Model):
         self.inputGrainState=None
         self.outputGrainState=None
 
-    def initialize(self, file='', workdir='', metadata={}, validateMetaData=True, **kwargs):
-        super().initialize(file=file, workdir=workdir, metadata=metadata, validateMetaData=validateMetaData)
+    def initialize(self, files=[], workdir='', metadata={}, validateMetaData=True, **kwargs):
+        super().initialize(files=files, workdir=workdir, metadata=metadata, validateMetaData=validateMetaData)
 
     def get(self, propID, time, objectID=0):
         if propID == mp.PropertyID.PID_GrainState:

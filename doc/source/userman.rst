@@ -816,15 +816,15 @@ loaded.
             self.thermalSolver = demoapp.thermal()
             self.mechanicalSolver = demoapp.mechanical()
 
-        def initialize(self, file='', workdir='', targetTime=PQ.PhysicalQuantity('0 s'), metaData={}, validateMetaData=True, **kwargs):
-            super(Example06, self).initialize(file=file, workdir=workdir, targetTime=targetTime, metaData=metaData, validateMetaData=validateMetaData, **kwargs)
+        def initialize(self, files=[], workdir='', targetTime=PQ.PhysicalQuantity('0 s'), metaData={}, validateMetaData=True, **kwargs):
+            super(Example06, self).initialize(files=files, workdir=workdir, targetTime=targetTime, metaData=metaData, validateMetaData=validateMetaData, **kwargs)
 
             passingMD = {
                # ...
             }
 
-            self.thermalSolver.initialize('inputT10.in', '.', metaData=passingMD)
-            self.mechanicalSolver.initialize('inputM10.in', '.', metaData=passingMD)
+            self.thermalSolver.initialize(['inputT10.in'], '.', metaData=passingMD)
+            self.mechanicalSolver.initialize(['inputM10.in'], '.', metaData=passingMD)
 
         def solveStep(self, istep, stageID=0, runInBackground=False):
             self.thermalSolver.solveStep(istep, stageID, runInBackground)

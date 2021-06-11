@@ -10,7 +10,7 @@ from mupif.tests import demo
 
 class TestUnits(unittest.TestCase):
     def setUp(self):
-        self.app1=demo.AppCurrTime(file=None)
+        self.app1=demo.AppCurrTime(files=None)
     def tearDown(self):
         self.app1.terminate()
     def testUnits(self):

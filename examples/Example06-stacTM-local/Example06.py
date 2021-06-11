@@ -39,8 +39,8 @@ class Example06(workflow.Workflow):
         self.registerModel(self.thermalSolver, 'thermal')
         self.registerModel(self.mechanicalSolver, 'mechanical')
 
-    def initialize(self, file='', workdir='', targetTime=0*mp.U.s, metadata={}, validateMetaData=True):
-        super().initialize(file=file, workdir=workdir, targetTime=targetTime, metadata=metadata,
+    def initialize(self, files=[], workdir='', targetTime=0*mp.U.s, metadata={}, validateMetaData=True):
+        super().initialize(files=files, workdir=workdir, targetTime=targetTime, metadata=metadata,
                                           validateMetaData=validateMetaData)
 
         passingMD = {
@@ -51,8 +51,8 @@ class Example06(workflow.Workflow):
             }
         }
 
-        self.thermalSolver.initialize('inputT10.in', '.', metadata=passingMD)
-        self.mechanicalSolver.initialize('inputM10.in', '.', metadata=passingMD)
+        self.thermalSolver.initialize(['inputT10.in'], '.', metadata=passingMD)
+        self.mechanicalSolver.initialize(['inputM10.in'], '.', metadata=passingMD)
         #self.mechanicalSolver.printMetadata(nonEmpty=False)
 
     def solveStep(self, istep, stageID=0, runInBackground=False):

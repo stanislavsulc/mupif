@@ -37,9 +37,9 @@ class Example11(mp.workflow.Workflow):
         self.m1 = None
         self.m2 = None
     
-    def initialize(self, file='', workdir='', targetTime=0*mp.U.s, metadata={}, validateMetaData=True):
+    def initialize(self, files=[], workdir='', targetTime=0*mp.U.s, metadata={}, validateMetaData=True):
     
-        super().initialize(file=file, workdir=workdir, targetTime=targetTime, metadata=metadata, validateMetaData=validateMetaData)
+        super().initialize(files=files, workdir=workdir, targetTime=targetTime, metadata=metadata, validateMetaData=validateMetaData)
         self.m1 = Model1()
         self.m2 = Model2()
 

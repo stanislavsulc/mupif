@@ -171,6 +171,7 @@ ModelSchema = {
 
 from typing import Optional,Any
 
+
 @Pyro5.api.expose
 class Model(mupifobject.MupifObject):
     """
@@ -191,7 +192,7 @@ class Model(mupifobject.MupifObject):
     pyroNS: Optional[str]=None
     pyroURI: Optional[str]=None
     appName: str=None
-    file: Optional[str]=None
+    files: Optional[str]=None
     workDir: str=''
 
     def __init__(self,*,metadata={},**kw):
@@ -212,11 +213,11 @@ class Model(mupifobject.MupifObject):
         #import pprint
         #pprint.pprint(self.metadata)
 
-    def initialize(self, file='', workdir='', metadata={}, validateMetaData=True, **kwargs):
+    def initialize(self, files=[], workdir='', metadata={}, validateMetaData=True, **kwargs):
         """
         Initializes application, i.e. all functions after constructor and before run.
         
-        :param str file: Name of file
+        :param list of str files: Name of files
         :param str workdir: Optional parameter for working directory
         :param dict metadata: Optional dictionary used to set up metadata (can be also set by setMetadata() ).
         :param bool validateMetaData: Defines if the metadata validation will be called
@@ -230,7 +231,7 @@ class Model(mupifobject.MupifObject):
         
         # self.printMetadata()
                 
-        self.file = file
+        self.files = files
         if workdir == '':
             self.workDir = os.getcwd()
         else:
@@ -299,6 +300,7 @@ class Model(mupifobject.MupifObject):
         :return: Returns requested field.
         :rtype: Field
         """
+
     def getFieldURI(self, fieldID, time, objectID=0):
         """
         Returns the uri of requested field at given time. Field is identified by fieldID.
@@ -334,6 +336,7 @@ class Model(mupifobject.MupifObject):
         :param field.Field field: Remote field to be registered by the application
         :param int objectID: Identifies field with objectID (optional, default 0)
         """
+
     def getProperty(self, propID, time, objectID=0):
         """
         Returns property identified by its ID evaluated at given time.
@@ -345,6 +348,7 @@ class Model(mupifobject.MupifObject):
         :return: Returns representation of requested property 
         :rtype: Property
         """
+
     def setProperty(self, property, objectID=0):
         """
         Register given property in the application
@@ -352,6 +356,7 @@ class Model(mupifobject.MupifObject):
         :param property.Property property: Setting property
         :param int objectID: Identifies object/submesh on which property is evaluated (optional, default 0)
         """
+
     def getFunction(self, funcID, time, objectID=0):
         """
         Returns function identified by its ID
@@ -363,6 +368,7 @@ class Model(mupifobject.MupifObject):
         :return: Returns requested function
         :rtype: Function
         """
+
     def setFunction(self, func, objectID=0):
         """
         Register given function in the application.
@@ -370,6 +376,7 @@ class Model(mupifobject.MupifObject):
         :param function.Function func: Function to register
         :param int objectID: Identifies optional object/submesh on which property is evaluated (optional, default 0)
         """
+
     def getMesh(self, tstep):
         """
         Returns the computational mesh for given solution step.
@@ -378,6 +385,7 @@ class Model(mupifobject.MupifObject):
         :return: Returns the representation of mesh
         :rtype: Mesh
         """
+
     def solveStep(self, tstep, stageID=0, runInBackground=False):
         """ 
         Solves the problem for given time step.
@@ -403,19 +411,22 @@ class Model(mupifobject.MupifObject):
         """
         Wait until solve is completed when executed in background.
         """
+
     def isSolved(self):
         """
         Check whether solve has completed.
 
         :return: Returns true or false depending whether solve has completed when executed in background.
         :rtype: bool
-        """ 
+        """
+
     def finishStep(self, tstep):
         """
         Called after a global convergence within a time step is achieved.
 
         :param timestep.TimeStep tstep: Solution step
         """
+
     def getCriticalTimeStep(self):
         """
         Returns a critical time step for an application.
@@ -423,6 +434,7 @@ class Model(mupifobject.MupifObject):
         :return: Returns the actual (related to current state) critical time step increment
         :rtype: Physics.PhysicalQuantity
         """
+
     def getAssemblyTime(self, tstep):
         """
         Returns the assembly time related to given time step.
@@ -432,22 +444,26 @@ class Model(mupifobject.MupifObject):
         :return: Assembly time
         :rtype: Physics.PhysicalQuantity, timestep.TimeStep
         """
+
     def storeState(self, tstep):
         """
         Store the solution state of an application.
 
         :param timestep.TimeStep tstep: Solution step
         """
+
     def restoreState(self, tstep):
         """
         Restore the saved state of an application.
         :param timestep.TimeStep tstep: Solution step
         """
+
     def getAPIVersion(self):
         """
         :return: Returns the supported API version
         :rtype: str, int
         """
+
     def getApplicationSignature(self):
         """
         Get application signature.
@@ -522,12 +538,13 @@ class Model(mupifobject.MupifObject):
             print('AppName:\'%s\':' % self.getMetadata('Name'))
         super().printMetadata(nonEmpty)
 
-    
     def setJobID(self,jobid):
         self._jobID=jobid
+
     def getJobID(self):
         return self._jobID
-    
+
+
 @Pyro5.api.expose
 class RemoteModel (object):
     """
